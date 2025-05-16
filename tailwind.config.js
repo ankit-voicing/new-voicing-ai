@@ -6,9 +6,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary': '#4361EE',
-        'secondary': '#3A0CA3',
-        'accent': '#F72585',
+        'primary': '#5674F7',
+        'primary-light': '#EEF2FF',
+        'secondary': '#64748B',
+        'accent': '#64748B',
+        'font': '#18236B',
         'brand': {
           50: '#f0f9ff',
           100: '#e0f2fe',
