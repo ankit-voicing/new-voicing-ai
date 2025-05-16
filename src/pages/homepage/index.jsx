@@ -1,4 +1,4 @@
-'use client'
+
 import { useState, useEffect } from 'react';
 import {
     Home,
@@ -16,150 +16,70 @@ import {
 } from 'lucide-react';
 
 export default function VoicingAIDashboard() {
-    const [expanded, setExpanded] = useState(false);
-    const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
-
-    useEffect(() => {
-        const handleResize = () => setWindowWidth(window.innerWidth);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    const isMobile = windowWidth < 768;
 
     return (
-        <div className="flex h-screen bg-slate-50 text-gray-800 overflow-hidden">
-            {/* Sidebar */}
-            <div
-                onMouseEnter={() => !isMobile && setExpanded(true)}
-                onMouseLeave={() => !isMobile && setExpanded(false)}
-                className={`${expanded ? 'w-64' : 'w-20'} bg-white transition-all duration-300 ease-in-out overflow-hidden flex flex-col border-r border-gray-100 shadow-sm`}
-            >
-                {/* Logo */}
-                <div className="flex items-center p-5 border-b border-gray-100">
-                    <div className="bg-blue-500 text-white p-2 rounded-md">
-                        <Mic size={20} />
-                    </div>
-                    <h1 className={`ml-3 font-bold text-xl transition-opacity duration-300 ${expanded ? 'opacity-100' : 'opacity-0'}`}>
-                        Voicing<span className="text-blue-500">AI</span>
-                    </h1>
-                    {isMobile && (
-                        <button
-                            onClick={() => setExpanded(!expanded)}
-                            className="ml-auto text-gray-500 hover:text-gray-700"
-                        >
-                            <AlignRight size={20} />
-                        </button>
-                    )}
+
+        <div className="flex-1 overflow-auto">
+
+            <main className="p-6">
+                {/* Feature Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <FeatureCard
+                        icon={<GitBranch className="text-indigo-600" size={24} />}
+                        title="Conversational Pathways"
+                        description="Design complex branching conversation flows"
+                    />
+                    <FeatureCard
+                        icon={<Phone className="text-blue-600" size={24} />}
+                        title="AI Assistant"
+                        description="Create adaptive intelligent conversations at scale"
+                    />
+                    <FeatureCard
+                        icon={<Database className="text-emerald-600" size={24} />}
+                        title="Knowledge Base"
+                        description="Create dynamic knowledge bases that stay current"
+                    />
+                    <FeatureCard
+                        icon={<Mic className="text-purple-600" size={24} />}
+                        title="AI Voices"
+                        description="Create voice clones or choose from diverse range"
+                    />
                 </div>
 
-                {/* Nav Links */}
-                <nav className="flex-1 py-4">
-                    <NavLink icon={<Home size={20} />} label="Home" active expanded={expanded} />
-                    <NavLink icon={<Users size={20} />} label="AI Assistant" expanded={expanded} />
-                    <NavLink icon={<GitBranch size={20} />} label="Pathways" expanded={expanded} />
-                    <NavLink icon={<Mic size={20} />} label="Voice" expanded={expanded} />
-                    <NavLink icon={<Phone size={20} />} label="Call Logs" expanded={expanded} />
-                    <NavLink icon={<BarChart2 size={20} />} label="Analytics" expanded={expanded} />
-                    <NavLink icon={<Database size={20} />} label="Knowledge Base" expanded={expanded} />
-                    <NavLink icon={<PieChart size={20} />} label="Campaigns" expanded={expanded} />
-                </nav>
+                {/* Analytics Section */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Chart 1 */}
+                    <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-lg font-semibold text-gray-800">Hourly Calls</h3>
+                            <div className="flex items-center">
+                                <span className="text-sm text-gray-600 mr-2">Last 7 Days</span>
+                                <ChevronRight size={16} className="text-gray-400" />
+                            </div>
+                        </div>
+                        <DensityChart />
+                    </div>
 
-                {/* Bottom Nav */}
-                <div className="mt-auto border-t border-gray-100 py-4">
-                    <NavLink icon={<Settings size={20} />} label="Settings" expanded={expanded} />
-                    <NavLink icon={<LogOut size={20} />} label="Logout" expanded={expanded} />
+                    {/* Chart 2 */}
+                    <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                        <div className="flex justify-between items-center mb-6">
+                            <h3 className="text-lg font-semibold text-gray-800">Call Density by Area Code</h3>
+                            <div className="flex items-center">
+                                <span className="text-sm text-gray-600 mr-2">Global View</span>
+                                <ChevronRight size={16} className="text-gray-400" />
+                            </div>
+                        </div>
+                        <div className="w-full h-64 bg-slate-100 rounded-lg flex items-center justify-center">
+                            <WorldMap />
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            {/* Main Content */}
-            <div className="flex-1 overflow-auto">
-                {/* Top Nav */}
-                <header className="bg-white p-5 flex items-center justify-between border-b border-gray-100 sticky top-0 z-10">
-                    <h2 className="text-xl font-semibold text-gray-800 ">Dashboard</h2>
-                    <div className="flex items-center gap-4">
-                        <div className="relative">
-                            <div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white">
-                                R
-                            </div>
-                            <span className="absolute top-0 right-0 h-3 w-3 bg-green-500 rounded-full border-2 border-white"></span>
-                        </div>
-                    </div>
-                </header>
-
-                {/* Content */}
-                <main className="p-6">
-                    {/* Feature Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                        <FeatureCard
-                            icon={<GitBranch className="text-indigo-600" size={24} />}
-                            title="Conversational Pathways"
-                            description="Design complex branching conversation flows"
-                        />
-                        <FeatureCard
-                            icon={<Phone className="text-blue-600" size={24} />}
-                            title="AI Assistant"
-                            description="Create adaptive intelligent conversations at scale"
-                        />
-                        <FeatureCard
-                            icon={<Database className="text-emerald-600" size={24} />}
-                            title="Knowledge Base"
-                            description="Create dynamic knowledge bases that stay current"
-                        />
-                        <FeatureCard
-                            icon={<Mic className="text-purple-600" size={24} />}
-                            title="AI Voices"
-                            description="Create voice clones or choose from diverse range"
-                        />
-                    </div>
-
-                    {/* Analytics Section */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        {/* Chart 1 */}
-                        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-                            <div className="flex justify-between items-center mb-6">
-                                <h3 className="text-lg font-semibold text-gray-800">Hourly Calls</h3>
-                                <div className="flex items-center">
-                                    <span className="text-sm text-gray-600 mr-2">Last 7 Days</span>
-                                    <ChevronRight size={16} className="text-gray-400" />
-                                </div>
-                            </div>
-                            <DensityChart />
-                        </div>
-
-                        {/* Chart 2 */}
-                        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-                            <div className="flex justify-between items-center mb-6">
-                                <h3 className="text-lg font-semibold text-gray-800">Call Density by Area Code</h3>
-                                <div className="flex items-center">
-                                    <span className="text-sm text-gray-600 mr-2">Global View</span>
-                                    <ChevronRight size={16} className="text-gray-400" />
-                                </div>
-                            </div>
-                            <div className="w-full h-64 bg-slate-100 rounded-lg flex items-center justify-center">
-                                <WorldMap />
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            </div>
+            </main>
         </div>
     );
 }
 
-function NavLink({ icon, label, active, expanded }) {
-    return (
-        <div className={`flex items-center px-5 py-3 cursor-pointer hover:bg-blue-50 hover:text-blue-600 transition-colors ${active ? 'text-blue-600 bg-blue-50' : 'text-gray-600'}`}>
-            <div className="flex-shrink-0">{icon}</div>
-            <span className={`ml-3 whitespace-nowrap transition-opacity duration-300 ${expanded ? 'opacity-100' : 'opacity-0 hidden md:block'}`}>
-                {label}
-            </span>
-            {active && (
-                <div className="ml-auto w-1 h-6 bg-blue-600 rounded-full"></div>
-            )}
-        </div>
-    );
-}
+
 
 function FeatureCard({ icon, title, description }) {
     return (
