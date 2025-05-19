@@ -1,16 +1,17 @@
 
+
 const AiAssistantOptionCard = ({ icon: Icon, title, description, isSelected, isDisabled, onClick }) => {
     return (
         <div
-            className={`relative p-8 rounded-xl border transition-all duration-200 ease-in-out cursor-pointer flex flex-col items-center text-center h-full ${isSelected
+            className={`relative p-8 rounded-xl border transition-all duration-200 ease-in-out  flex flex-col items-center text-center h-full ${isSelected
                 ? 'border-2 shadow-md'
                 : 'border-gray-100 hover:border-gray-200 hover:shadow-sm'
-                }`}
+                } ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'opacity-100 cursor-pointer'}`}
             style={{
                 borderColor: isSelected ? '#5674F7' : undefined,
                 backgroundColor: 'white'
             }}
-            onClick={onClick}
+            onClick={isDisabled ? null : onClick}
         >
             <div
                 className="w-16 h-16 rounded-full flex items-center justify-center mb-6"
@@ -33,7 +34,7 @@ const AiAssistantOptionCard = ({ icon: Icon, title, description, isSelected, isD
                 {description}
             </p>
 
-            {/* {isSelected && (
+            {isSelected && (
                 <div
                     className="absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center"
                     style={{ backgroundColor: '#5674F7' }}
@@ -42,7 +43,7 @@ const AiAssistantOptionCard = ({ icon: Icon, title, description, isSelected, isD
                         <path d="M10 3L4.5 8.5L2 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                 </div>
-            )} */}
+            )}
         </div>
     );
 };

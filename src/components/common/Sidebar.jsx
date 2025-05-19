@@ -41,12 +41,12 @@ const Sidebar = () => {
 
             {/* Nav Links */}
             <nav className="flex-1 mt-2">
-                <SidebarLink path={'/dashboard'} active={pathname === '/dashboard'} icon={<Home size={20} />} label="Home" expanded={expanded} />
-                <SidebarLink path={'/ai-assistant'} active={pathname === '/ai-assistant'} icon={<Users size={20} />} label="AI Assistant" expanded={expanded} />
+                <SidebarLink icon={<Home size={20} />} label="Home" path={'/dashboard'} active={pathname === '/dashboard'} expanded={expanded} />
+                <SidebarLink icon={<Users size={20} />} label="AI Assistant" path={'/ai-assistant'} active={pathname === '/ai-assistant'} expanded={expanded} />
                 <SidebarLink icon={<GitBranch size={20} />} label="Pathways" expanded={expanded} />
                 <SidebarLink icon={<Mic size={20} />} label="Voice" expanded={expanded} />
-                <SidebarLink icon={<Phone size={20} />} label="Call Logs" expanded={expanded} />
-                <SidebarLink icon={<BarChart2 size={20} />} label="Analytics" expanded={expanded} />
+                <SidebarLink icon={<Phone size={20} />} label="Call Logs" path={'/call-logs'} active={pathname === '/call-logs'} expanded={expanded} />
+                <SidebarLink icon={<BarChart2 size={20} />} label="Analytics" path={'/analytics'} active={pathname === '/analytics'} expanded={expanded} />
                 <SidebarLink icon={<Database size={20} />} label="Knowledge Base" expanded={expanded} />
                 <SidebarLink icon={<PieChart size={20} />} label="Campaigns" expanded={expanded} />
             </nav>
