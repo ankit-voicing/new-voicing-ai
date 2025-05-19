@@ -14,6 +14,7 @@ import {
     Database,
     AlignRight
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function VoicingAIDashboard() {
     const [expanded, setExpanded] = useState(false);
@@ -55,10 +56,10 @@ export default function VoicingAIDashboard() {
 
                 {/* Nav Links */}
                 <nav className="flex-1 py-4">
-                    <NavLink icon={<Home size={20} />} label="Home" active expanded={expanded} />
+                    <NavLink icon={<Home size={20} />} label="Home" active expanded={expanded} to="/" />
                     <NavLink icon={<Users size={20} />} label="AI Assistant" expanded={expanded} />
                     <NavLink icon={<GitBranch size={20} />} label="Pathways" expanded={expanded} />
-                    <NavLink icon={<Mic size={20} />} label="Voice" expanded={expanded} />
+                    <NavLink icon={<Mic size={20} />} label="Voice" expanded={expanded} to="/voice" />
                     <NavLink icon={<Phone size={20} />} label="Call Logs" expanded={expanded} />
                     <NavLink icon={<BarChart2 size={20} />} label="Analytics" expanded={expanded} />
                     <NavLink icon={<Database size={20} />} label="Knowledge Base" expanded={expanded} />
@@ -147,9 +148,9 @@ export default function VoicingAIDashboard() {
     );
 }
 
-function NavLink({ icon, label, active, expanded }) {
+function NavLink({ icon, label, active, expanded, to }) {
     return (
-        <div className={`flex items-center px-5 py-3 cursor-pointer hover:bg-blue-50 hover:text-blue-600 transition-colors ${active ? 'text-blue-600 bg-blue-50' : 'text-gray-600'}`}>
+        <Link to={to || '#'} className={`flex items-center px-5 py-3 cursor-pointer hover:bg-blue-50 hover:text-blue-600 transition-colors ${active ? 'text-blue-600 bg-blue-50' : 'text-gray-600'}`}>
             <div className="flex-shrink-0">{icon}</div>
             <span className={`ml-3 whitespace-nowrap transition-opacity duration-300 ${expanded ? 'opacity-100' : 'opacity-0 hidden md:block'}`}>
                 {label}
@@ -157,7 +158,7 @@ function NavLink({ icon, label, active, expanded }) {
             {active && (
                 <div className="ml-auto w-1 h-6 bg-blue-600 rounded-full"></div>
             )}
-        </div>
+        </Link>
     );
 }
 
