@@ -2,227 +2,173 @@ import React, { useRef } from "react";
 import { useState, useEffect } from 'react';
 
 import {
-    Home,
-    Users,
-    GitBranch,
-    Mic,
-    Phone,
-    BarChart2,
-    Settings,
-    LogOut,
-    PieChart,
-    Database,
-    AlignRight
+  Home,
+  Users,
+  GitBranch,
+  Mic,
+  Phone,
+  BarChart2,
+  Settings,
+  LogOut,
+  PieChart,
+  Database,
+  AlignRight
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Copy, Star, Volume2 } from 'lucide-react';
 
 
 export default function VoicePage() {
-    const [expanded, setExpanded] = useState(false);
-    const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
-    const [activeTab, setActiveTab] = useState("voice-settings"); // NEW
+  const [expanded, setExpanded] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
+  const [activeTab, setActiveTab] = useState("voice-settings"); // NEW
 
-    useEffect(() => {
-        const handleResize = () => setWindowWidth(window.innerWidth);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-    const isMobile = windowWidth < 768;
+  const isMobile = windowWidth < 768;
 
-    return (
-        <div className="flex h-screen bg-slate-50 text-gray-800 overflow-hidden">
-            {/* Sidebar */}
-            <div
-                onMouseEnter={() => !isMobile && setExpanded(true)}
-                onMouseLeave={() => !isMobile && setExpanded(false)}
-                className={`${expanded ? 'w-64' : 'w-20'} bg-white transition-all duration-300 ease-in-out overflow-hidden flex flex-col border-r border-gray-100 shadow-sm`}
-            >
-                {/* Logo */}
-                <div className="flex items-center p-5 border-b border-gray-100">
-                    <div className="bg-blue-500 text-white p-2 rounded-md">
-                        <Mic size={20} />
-                    </div>
-                    <h1 className={`ml-3 font-bold text-xl transition-opacity duration-300 ${expanded ? 'opacity-100' : 'opacity-0'}`}>
-                        Voicing<span className="text-blue-500">AI</span>
-                    </h1>
-                    {isMobile && (
-                        <button
-                            onClick={() => setExpanded(!expanded)}
-                            className="ml-auto text-gray-500 hover:text-gray-700"
-                        >
-                            <AlignRight size={20} />
-                        </button>
-                    )}
-                </div>
+  return (
+    <div className="flex h-screen bg-slate-50 text-gray-800 overflow-hidden">
 
-                {/* Nav Links */}
-                <nav className="flex-1 py-4">
-                    <NavLink icon={<Home size={20} />} label="Home" expanded={expanded} to="/" />
-                    <NavLink icon={<Users size={20} />} label="AI Assistant" expanded={expanded} />
-                    <NavLink icon={<GitBranch size={20} />} label="Pathways" expanded={expanded} />
-                    <NavLink icon={<Mic size={20} />} label="Voice" active expanded={expanded} to="/voice" />
-                    <NavLink icon={<Phone size={20} />} label="Call Logs" expanded={expanded} />
-                    <NavLink icon={<BarChart2 size={20} />} label="Analytics" expanded={expanded} />
-                    <NavLink icon={<Database size={20} />} label="Knowledge Base" expanded={expanded} />
-                    <NavLink icon={<PieChart size={20} />} label="Campaigns" expanded={expanded} />
-                </nav>
+      {/* Main Content */}
+      <div className="flex-1 overflow-auto">
 
-                {/* Bottom Nav */}
-                <div className="mt-auto border-t border-gray-100 py-4">
-                    <NavLink icon={<Settings size={20} />} label="Settings" expanded={expanded} />
-                    <NavLink icon={<LogOut size={20} />} label="Logout" expanded={expanded} />
-                </div>
-            </div>
-
-            {/* Main Content */}
-            <div className="flex-1 overflow-auto">
-                {/* Top Nav */}
-                <header className="bg-white p-5 flex items-center justify-between border-b border-gray-100 sticky top-0 z-10">
-                    <h2 className="text-xl font-semibold text-gray-800">Voice Management</h2>
-                    <div className="flex items-center gap-4">
-                        <div className="relative">
-                            <div className="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white">
-                                R
-                            </div>
-                            <span className="absolute top-0 right-0 h-3 w-3 bg-green-500 rounded-full border-2 border-white"></span>
-                        </div>
-                    </div>
-                </header>
-
-                {/* Tab Switcher */}
-                <div className="flex border-b border-gray-200 px-6 pt-4">
-                    <button
-                        onClick={() => setActiveTab("voice-settings")}
-                        className={`mr-6 pb-2 font-medium ${activeTab === "voice-settings" ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-500"}`}
-                    >
-                        Voice Settings
-                    </button>
-                    <button
-                        onClick={() => setActiveTab("curated-voices")}
-                        className={`pb-2 font-medium ${activeTab === "curated-voices" ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-500"}`}
-                    >
-                        Curated Voices
-                    </button>
-                </div>
-
-                {/* Tab Content */}
-                <main className="p-6">
-                    {activeTab === "voice-settings" && (
-                        <div>
-                            {/* <h3 className="text-xl font-semibold mb-4">Voice Settings</h3> */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                                {Array.from({ length: 9 }).map((_, idx) => (
-                                    <VoiceCard
-                                        key={idx}
-                                        name="Arya"
-                                        id={`voice-${idx}`}
-                                        tags={["Natural", "American", "Female"]}
-                                        photo="https://randomuser.me/api/portraits/women/44.jpg"
-                                        audioSrc="https://example.com/audio.mp3"
-                                        rating={4}
-                                    />
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-
-                    {activeTab === "curated-voices" && (
-                        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-                            <div className="flex items-center gap-4 mb-6">
-                                <div className="p-3 bg-blue-50 rounded-full">
-                                    <Mic className="text-blue-600" size={24} />
-                                </div>
-                                <h3 className="text-lg font-semibold text-blue-600 underline">Curated Voices</h3>
-                            </div>
-                            <p className="text-gray-600">This is the curated voices tab content.</p>
-                        </div>
-                    )}
-                </main>
-            </div>
+        {/* Tab Switcher */}
+        <div className="flex border-b border-gray-200 px-6 pt-4">
+          <button
+            onClick={() => setActiveTab("voice-settings")}
+            className={`mr-6 pb-2 font-medium ${activeTab === "voice-settings" ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-500"}`}
+          >
+            Voice Settings
+          </button>
+          <button
+            onClick={() => setActiveTab("curated-voices")}
+            className={`pb-2 font-medium ${activeTab === "curated-voices" ? "text-blue-600 border-b-2 border-blue-600" : "text-gray-500"}`}
+          >
+            Curated Voices
+          </button>
         </div>
-    );
+
+        {/* Tab Content */}
+        <main className="p-6">
+          {activeTab === "voice-settings" && (
+            <div>
+              {/* <h3 className="text-xl font-semibold mb-4">Voice Settings</h3> */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                {Array.from({ length: 9 }).map((_, idx) => (
+                  <VoiceCard
+                    key={idx}
+                    name="Arya"
+                    id={`voice-${idx}`}
+                    tags={["Natural", "American", "Female"]}
+                    photo="https://randomuser.me/api/portraits/women/44.jpg"
+                    audioSrc="https://example.com/audio.mp3"
+                    rating={4}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+
+          {activeTab === "curated-voices" && (
+            <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-3 bg-blue-50 rounded-full">
+                  <Mic className="text-blue-600" size={24} />
+                </div>
+                <h3 className="text-lg font-semibold text-blue-600 underline">Curated Voices</h3>
+              </div>
+              <p className="text-gray-600">This is the curated voices tab content.</p>
+            </div>
+          )}
+        </main>
+      </div>
+    </div>
+  );
 }
 
 function NavLink({ icon, label, active, expanded, to }) {
-    return (
-        <Link to={to || '#'} className={`flex items-center px-5 py-3 cursor-pointer hover:bg-blue-50 hover:text-blue-600 transition-colors ${active ? 'text-blue-600 bg-blue-50' : 'text-gray-600'}`}>
-            <div className="flex-shrink-0">{icon}</div>
-            <span className={`ml-3 whitespace-nowrap transition-opacity duration-300 ${expanded ? 'opacity-100' : 'opacity-0 hidden md:block'}`}>
-                {label}
-            </span>
-            {active && (
-                <div className="ml-auto w-1 h-6 bg-blue-600 rounded-full"></div>
-            )}
-        </Link>
-    );
+  return (
+    <Link to={to || '#'} className={`flex items-center px-5 py-3 cursor-pointer hover:bg-blue-50 hover:text-blue-600 transition-colors ${active ? 'text-blue-600 bg-blue-50' : 'text-gray-600'}`}>
+      <div className="flex-shrink-0">{icon}</div>
+      <span className={`ml-3 whitespace-nowrap transition-opacity duration-300 ${expanded ? 'opacity-100' : 'opacity-0 hidden md:block'}`}>
+        {label}
+      </span>
+      {active && (
+        <div className="ml-auto w-1 h-6 bg-blue-600 rounded-full"></div>
+      )}
+    </Link>
+  );
 }
 
 // Updated VoiceCard component with more compact styling
 const VoiceCard = ({ name, id = "", tags = [], photo, audioSrc = "", rating = 0 }) => {
-    const audioRef = useRef(null);
-    const [isCopied, setIsCopied] = useState(false);
-    const filledStars = Math.min(Math.floor(rating), 5);
-    const emptyStars = 5 - filledStars;
-  
-    const handlePlayAudio = () => {
-      if (audioRef.current) audioRef.current.play();
-    };
-  
-    const handleCopy = (id) => {
-      if (!navigator.clipboard) return console.error("Clipboard API is not available");
-      setIsCopied(true);
-      navigator.clipboard.writeText(id).catch((error) => console.error("Failed to copy text: ", error));
-      setTimeout(() => setIsCopied(false), 2000);
-    };
-  
-    return (
-      <div className="w-full max-w-[300px] h-[179px] p-4 bg-white rounded-[12.42px] border border-solid border-[#d6d9e580] shadow-md hover:shadow-lg transition-transform duration-300 hover:scale-[1.02]">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#3682FA] shadow-sm">
-              <img src={photo} alt="User Photo" className="w-full h-full object-cover" />
-            </div>
-            <div>
-              <div className="text-[16px] font-semibold text-gray-800">{name}</div>
-              <div className="flex gap-1 items-center text-sm text-gray-500">
-                <p>{id.length > 10 ? `${id.substring(0, 10)}...` : id}</p>
-                <button onClick={() => handleCopy(id)} className="hover:text-blue-600 transition-colors duration-200">
-                  {!isCopied ? <CopyIcon /> : <CheckIcon />}
-                </button>
-              </div>
+  const audioRef = useRef(null);
+  const [isCopied, setIsCopied] = useState(false);
+  const filledStars = Math.min(Math.floor(rating), 5);
+  const emptyStars = 5 - filledStars;
+
+  const handlePlayAudio = () => {
+    if (audioRef.current) audioRef.current.play();
+  };
+
+  const handleCopy = (id) => {
+    if (!navigator.clipboard) return console.error("Clipboard API is not available");
+    setIsCopied(true);
+    navigator.clipboard.writeText(id).catch((error) => console.error("Failed to copy text: ", error));
+    setTimeout(() => setIsCopied(false), 2000);
+  };
+
+  return (
+    <div className="w-full max-w-[300px] h-[179px] p-4 bg-white rounded-[12.42px] border border-solid border-[#d6d9e580] shadow-md hover:shadow-lg transition-transform duration-300 hover:scale-[1.02]">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#3682FA] shadow-sm">
+            <img src={photo} alt="User Photo" className="w-full h-full object-cover" />
+          </div>
+          <div>
+            <div className="text-[16px] font-semibold text-gray-800">{name}</div>
+            <div className="flex gap-1 items-center text-sm text-gray-500">
+              <p>{id.length > 10 ? `${id.substring(0, 10)}...` : id}</p>
+              <button onClick={() => handleCopy(id)} className="hover:text-blue-600 transition-colors duration-200">
+                {!isCopied ? <CopyIcon /> : <CheckIcon />}
+              </button>
             </div>
           </div>
-          <div className="flex items-center space-x-1">
-            {Array.from({ length: filledStars }).map((_, idx) => <StarRate key={`filled-${idx}`} />)}
-            {Array.from({ length: emptyStars }).map((_, idx) => <EmptyStar key={`empty-${idx}`} />)}
-          </div>
         </div>
-        <div className="flex flex-wrap gap-1 mt-2">
-          {tags.map((tag, index) => (
-            <span key={index} className="px-2 py-1 bg-[#f0f2f5] text-xs rounded-full text-gray-600 animate-fadeIn">
-              {tag}
-            </span>
-          ))}
-        </div>
-        <div className="mt-4 flex justify-center">
-          <button
-            onClick={handlePlayAudio}
-            className="w-full max-w-[280px] h-[36px] flex items-center justify-center border border-[#3682FA] rounded-full transition-transform duration-300 hover:bg-[#f0f8ff] hover:scale-105 shadow-sm"
-          >
-            <VolumeUp />
-            <span className="font-semibold bg-gradient-to-r from-[#3682FA] to-[#3F3CFF] bg-clip-text text-transparent ml-2">
-              Play
-            </span>
-          </button>
-          <audio ref={audioRef} src={audioSrc} />
+        <div className="flex items-center space-x-1">
+          {Array.from({ length: filledStars }).map((_, idx) => <StarRate key={`filled-${idx}`} />)}
+          {Array.from({ length: emptyStars }).map((_, idx) => <EmptyStar key={`empty-${idx}`} />)}
         </div>
       </div>
-    );
-  };
-  
+      <div className="flex flex-wrap gap-1 mt-2">
+        {tags.map((tag, index) => (
+          <span key={index} className="px-2 py-1 bg-[#f0f2f5] text-xs rounded-full text-gray-600 animate-fadeIn">
+            {tag}
+          </span>
+        ))}
+      </div>
+      <div className="mt-4 flex justify-center">
+        <button
+          onClick={handlePlayAudio}
+          className="w-full max-w-[280px] h-[36px] flex items-center justify-center border border-[#3682FA] rounded-full transition-transform duration-300 hover:bg-[#f0f8ff] hover:scale-105 shadow-sm"
+        >
+          <VolumeUp />
+          <span className="font-semibold bg-gradient-to-r from-[#3682FA] to-[#3F3CFF] bg-clip-text text-transparent ml-2">
+            Play
+          </span>
+        </button>
+        <audio ref={audioRef} src={audioSrc} />
+      </div>
+    </div>
+  );
+};
+
 export const EmptyStar = () => {
   return (
     <svg width="14" height="22" viewBox="0 0 14 22" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -44,7 +44,7 @@ const Sidebar = () => {
                 <SidebarLink icon={<Home size={20} />} label="Home" path={'/dashboard'} active={pathname === '/dashboard'} expanded={expanded} />
                 <SidebarLink icon={<Users size={20} />} label="AI Assistant" path={'/ai-assistant'} active={pathname === '/ai-assistant'} expanded={expanded} />
                 <SidebarLink icon={<GitBranch size={20} />} label="Pathways" expanded={expanded} />
-                <SidebarLink icon={<Mic size={20} />} label="Voice" expanded={expanded} />
+                <SidebarLink icon={<Mic size={20} />} label="Voice" path={'/voice'} active={pathname === '/voice'} expanded={expanded} />
                 <SidebarLink icon={<Phone size={20} />} label="Call Logs" path={'/call-logs'} active={pathname === '/call-logs'} expanded={expanded} />
                 <SidebarLink icon={<BarChart2 size={20} />} label="Analytics" path={'/analytics'} active={pathname === '/analytics'} expanded={expanded} />
                 <SidebarLink icon={<Database size={20} />} label="Knowledge Base" expanded={expanded} />
