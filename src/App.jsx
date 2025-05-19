@@ -10,9 +10,9 @@ import CreateAssistant from './pages/create-assistant'
 import VoicingAIVoiceScreen from './pages/test2'
 import VoicingAIAnalytics from './pages/ananytics'
 import VoicingAICallLogs from './pages/call-logs'
+import VoicePage from './pages/voice'
 
 function App() {
-
   return (
     <>
       <Routes>
@@ -24,6 +24,7 @@ function App() {
           <Route path='/test2' element={<VoicingAIVoiceScreen />} />
           <Route path='/analytics' element={<VoicingAIAnalytics />} />
           <Route path='/call-logs' element={<VoicingAICallLogs />} />
+          <Route path="/voice" element={<VoicePage />} />
         </Route>
       </Routes>
 

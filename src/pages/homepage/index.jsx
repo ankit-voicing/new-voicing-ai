@@ -15,6 +15,7 @@ import {
     AlignRight,
     ChevronDown
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const VoicingAIDashboard = () => {
     const [timeRange, setTimeRange] = useState('Last 7 Days');
