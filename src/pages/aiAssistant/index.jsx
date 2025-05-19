@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Search, Settings, Home, User, Bell, Mic, BarChart, Clipboard, LogOut, Plus } from 'lucide-react';
+import CreateAssistantModal from '../test';
 
 // Configurable color theme
 const useTheme = (initialTheme = {
@@ -75,6 +76,7 @@ const Card = ({ title, tags, onClick, theme }) => {
 export default function AiAssistant() {
     const [theme, updateTheme] = useTheme();
     const [searchQuery, setSearchQuery] = useState('');
+    const [modalIsOpen, setModalIsOpen] = useState(false)
 
     const cards = [
         {
@@ -107,27 +109,10 @@ export default function AiAssistant() {
 
 
         <div className="flex-1 p-8">
-            {/* Header */}
-            <div className="flex justify-between items-center mb-8">
-                <div className="flex items-center gap-1">
-                    <div className="font-bold text-2xl" style={{ color: theme.primary }}>AI</div>
-                    <div className="font-bold text-2xl" style={{ color: theme.text }}>Assistant</div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                    <button className="p-2 rounded-full hover:bg-gray-100 transition-colors">
-                        <Bell size={20} color={theme.text} />
-                    </button>
-                    <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-medium">
-                        R
-                    </div>
-                </div>
-            </div>
-
-            {/* Create Assistant Card */}
-            <div
-                className="p-6 rounded-xl border border-gray-100 mb-10 flex flex-col items-center justify-center gap-4 bg-white"
+            <button
+                className="w-fit p-6 rounded-xl border border-gray-100 mb-10 flex flex-col items-center justify-center gap-4 bg-white"
                 style={{ backgroundColor: theme.card }}
+                onClick={() => setModalIsOpen(true)}
             >
                 <div
                     className="w-12 h-12 rounded-full flex items-center justify-center"
@@ -146,7 +131,7 @@ export default function AiAssistant() {
                         Press Create to get start
                     </p>
                 </div>
-            </div>
+            </button>
 
             {/* Assistants Section */}
             <div className="mb-6">
@@ -175,58 +160,9 @@ export default function AiAssistant() {
                 </div>
             </div>
 
-            {/* Color theme selector (for demo purposes) */}
-            <div className="mt-12 flex flex-wrap gap-3">
-                <button
-                    className="p-2 rounded-full w-8 h-8 border border-white"
-                    style={{ backgroundColor: '#4f46e5' }}
-                    onClick={() => updateTheme({ primary: '#4f46e5' })}
-                    title="Indigo"
-                />
-                <button
-                    className="p-2 rounded-full w-8 h-8 border border-white"
-                    style={{ backgroundColor: '#0ea5e9' }}
-                    onClick={() => updateTheme({ primary: '#0ea5e9' })}
-                    title="Sky Blue"
-                />
-                <button
-                    className="p-2 rounded-full w-8 h-8 border border-white"
-                    style={{ backgroundColor: '#10b981' }}
-                    onClick={() => updateTheme({ primary: '#10b981' })}
-                    title="Emerald"
-                />
-                <button
-                    className="p-2 rounded-full w-8 h-8 border border-white"
-                    style={{ backgroundColor: '#f59e0b' }}
-                    onClick={() => updateTheme({ primary: '#f59e0b' })}
-                    title="Amber"
-                />
-                <button
-                    className="p-2 rounded-full w-8 h-8 border border-white"
-                    style={{ backgroundColor: '#ef4444' }}
-                    onClick={() => updateTheme({ primary: '#ef4444' })}
-                    title="Red"
-                />
-                <button
-                    className="p-2 rounded-full w-8 h-8 border border-white"
-                    style={{ backgroundColor: '#8b5cf6' }}
-                    onClick={() => updateTheme({ primary: '#8b5cf6' })}
-                    title="Violet"
-                />
-                <button
-                    className="p-2 rounded-full w-8 h-8 border border-white"
-                    style={{ backgroundColor: '#111827' }}
-                    onClick={() => updateTheme({
-                        primary: '#818cf8',
-                        text: '#f9fafb',
-                        background: '#111827',
-                        sidebar: '#1f2937',
-                        card: '#1f2937',
-                        secondary: '#374151'
-                    })}
-                    title="Dark Mode"
-                />
-            </div>
+            <CreateAssistantModal
+                open={modalIsOpen}
+                toggleOpen={() => setModalIsOpen(false)} />
         </div>
     );
 }

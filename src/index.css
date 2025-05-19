@@ -6,3 +6,8 @@
 body{
     font-family: "Inter", sans-serif;
 }
+.gradient-text{
+    background: -webkit-linear-gradient(#3682FA, #3F3CFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

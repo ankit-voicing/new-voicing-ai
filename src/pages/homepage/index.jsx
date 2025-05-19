@@ -12,13 +12,14 @@ import {
     ChevronRight,
     PieChart,
     Database,
-    AlignRight
+    AlignRight,
+    ChevronDown
 } from 'lucide-react';
 
-export default function VoicingAIDashboard() {
-
+const VoicingAIDashboard = () => {
+    const [timeRange, setTimeRange] = useState('Last 7 Days');
+    const [assistantFilter, setAssistantFilter] = useState('Assistant 1');
     return (
-
         <div className="flex-1 overflow-auto">
 
             <main className="p-6">
@@ -44,6 +45,22 @@ export default function VoicingAIDashboard() {
                         title="AI Voices"
                         description="Create voice clones or choose from diverse range"
                     />
+                </div>
+
+                <div className="flex justify-end mb-6 space-x-4">
+                    <div className="relative">
+                        <button className="px-4 py-2 rounded-lg border border-gray-200 bg-white flex items-center space-x-2 text-sm text-gray-700 hover:bg-gray-50">
+                            <span>{timeRange}</span>
+                            <ChevronDown size={16} />
+                        </button>
+                    </div>
+
+                    <div className="relative">
+                        <button className="px-4 py-2 rounded-lg border border-gray-200 bg-white flex items-center space-x-2 text-sm text-gray-700 hover:bg-gray-50">
+                            <span>{assistantFilter}</span>
+                            <ChevronDown size={16} />
+                        </button>
+                    </div>
                 </div>
 
                 {/* Analytics Section */}
@@ -78,12 +95,12 @@ export default function VoicingAIDashboard() {
         </div>
     );
 }
-
+export default VoicingAIDashboard
 
 
 function FeatureCard({ icon, title, description }) {
     return (
-        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+        <div className="cursor-pointer bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
             <div className="flex flex-col items-center text-center">
                 <div className="mb-4 p-3 bg-gray-50 rounded-full">
                     {icon}

@@ -1,24 +1,26 @@
 
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import Header from './components/common/Header'
-import Sidebar from './components/common/Sidebar'
+
 import VoicingAIDashboard from './pages/homepage'
-import AiAssistant from './pages/homepage/aiAssistant'
+import AiAssistant from './pages/aiAssistant'
+import Layout from './components/common/Layout'
+import CreateAssistantModal from './pages/test'
+import AssistantCreationUI from './pages/test2'
 
 function App() {
 
   return (
     <>
-      <div className='min-h-screen'>
-        <Header />
-        <div className="flex bg-slate-50 text-gray-800">
-          <Sidebar />
-          <div className='ml-20'>
-            <VoicingAIDashboard />
-            <AiAssistant />
-          </div>
-        </div>
-      </div>
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route path='/dashboard' element={<VoicingAIDashboard />} />
+          <Route path='/ai-assistant' element={<AiAssistant />} />
+          <Route path='/test' element={<CreateAssistantModal />} />
+          <Route path='/test2' element={<AssistantCreationUI />} />
+        </Route>
+      </Routes>
+
     </>
   )
 }

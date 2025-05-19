@@ -14,9 +14,12 @@ import {
     AlignRight
 } from 'lucide-react';
 import SidebarLink from './SidebarLink';
+import { useLocation, useParams } from 'react-router-dom';
 
 const Sidebar = () => {
-    const [expanded, setExpanded] = useState(true);
+
+    const { pathname } = useLocation()
+    const [expanded, setExpanded] = useState(false);
     const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
 
     useEffect(() => {
@@ -38,8 +41,8 @@ const Sidebar = () => {
 
             {/* Nav Links */}
             <nav className="flex-1 mt-2">
-                <SidebarLink icon={<Home size={20} />} label="Home" active expanded={expanded} />
-                <SidebarLink icon={<Users size={20} />} label="AI Assistant" expanded={expanded} />
+                <SidebarLink path={'/dashboard'} active={pathname === '/dashboard'} icon={<Home size={20} />} label="Home" expanded={expanded} />
+                <SidebarLink path={'/ai-assistant'} active={pathname === '/ai-assistant'} icon={<Users size={20} />} label="AI Assistant" expanded={expanded} />
                 <SidebarLink icon={<GitBranch size={20} />} label="Pathways" expanded={expanded} />
                 <SidebarLink icon={<Mic size={20} />} label="Voice" expanded={expanded} />
                 <SidebarLink icon={<Phone size={20} />} label="Call Logs" expanded={expanded} />

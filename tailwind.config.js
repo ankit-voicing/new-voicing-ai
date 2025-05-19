@@ -8,6 +8,7 @@ module.exports = {
       colors: {
         'primary': '#5674F7',
         'primary-light': '#EEF2FF',
+        'font-primary': '#343C6A',
         'secondary': '#64748B',
         'accent': '#64748B',
         'font': '#18236B',
