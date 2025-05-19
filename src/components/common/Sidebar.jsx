@@ -35,7 +35,7 @@ const Sidebar = () => {
         <div
             onMouseEnter={() => !isMobile && setExpanded(true)}
             onMouseLeave={() => !isMobile && setExpanded(false)}
-            className={`${expanded ? 'w-64' : 'w-20'} bg-white transition-all duration-300 ease-in-out overflow-hidden flex flex-col border-r border-gray-100 shadow-sm fixed h-fill`}
+            className={`${expanded ? 'w-64' : 'w-20'} bg-white transition-all duration-300 ease-in-out overflow-hidden flex flex-col border-r border-gray-100 shadow-sm fixed z-50 h-fill`}
         >
 
 
